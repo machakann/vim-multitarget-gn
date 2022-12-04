@@ -9,17 +9,17 @@ Suppose that you wanted to delete all `foo` from your buffer.
 
 ```
 foo bar
-foo bar
+bar foo
 foo bar
 ```
 
-You had searched the targets like `/foo<CR>`.
+You had searched the targets like `/foo<CR>` and now the cursor was at the first column of the first line.
 Then, could you tell what happen if you typed `3dgn`?
 The answer is here.
 
 ```
 foo bar
-foo bar
+bar foo
  bar
 ```
 
@@ -27,13 +27,10 @@ Yes, it should be. However, someone might expect like this.
 
 ```
  bar
- bar
+bar 
  bar
 ```
 
-The usual `3dgn` deletes the third `foo` instead of three `foo`.
-This is ok.
-But, it is also ok to have another choice to delete three `foo`.
 This is it.
 
 
@@ -49,7 +46,7 @@ omap gn <Plug>(multitarget-gn-gn)
 
 
 ## Requirements
-- Vim with `+textprop` feature
+- Vim with `SafeState` autocmd
 
 
 ## Difference from the original command
