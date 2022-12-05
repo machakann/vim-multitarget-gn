@@ -72,7 +72,9 @@ function! s:operate() abort
     for _ in range(s:count - 1)
       execute 'normal! ' .. s:n
       undojoin
-      normal! .
+      " NOTE: This is intentional use of 'normal' command without bang for
+      "       plugins like repeat.vim
+      normal .
     endfor
   catch /^Vim\%((\a\+)\)\=:E\%(35\|384\|385\|486\):/
   finally
