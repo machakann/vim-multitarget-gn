@@ -71,6 +71,10 @@ function! s:reserve(n, count) abort
   if a:count <= 1
     return
   endif
+  if s:textprop_count > 0
+    " Delete orphan text properties if they exist
+    call prop_remove({'type': s:TEXTPROP_NAME})
+  endif
   let s:mark = s:set_mark()
   let s:count = s:trim_count(a:count, a:n)
   let s:n = a:n
@@ -135,14 +139,16 @@ endfunction
 
 let s:TEXTPROP_NAME = 'multitarget-gn'
 let s:textprop_id = 0
+let s:textprop_count = 0
 call prop_type_add(s:TEXTPROP_NAME, {})
 " Mark the current cursor position
 function! s:set_mark() abort
   let l:lnum = line('.')
   let l:col = col('.')
   let l:id = s:textprop_id
-  let s:textprop_id += 1
   call prop_add(l:lnum, l:col, {'type': s:TEXTPROP_NAME, 'id': l:id})
+  let s:textprop_id += 1
+  let s:textprop_count += 1
   return {
   \   'type': s:TEXTPROP_NAME,
   \   'id': l:id,
@@ -168,6 +174,7 @@ function! s:go_to_mark(props) abort
   let l:lnum = l:prop.lnum
   let l:col = l:prop.col
   call prop_remove(a:props, l:lnum)
+  let s:textprop_count -= 1
   call cursor(l:lnum, l:col)
 endfunction
 
