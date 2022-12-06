@@ -490,6 +490,51 @@ endfunction "}}}
 "   call s:assert.equals(getpos('.'), [0, 4, 15, 0], 'failed at #2')
 " endfunction "}}}
 
+function! s:suite.gn_o_surround_operator() abort "{{{
+  " An operator surround the specified region by parentheses
+  function! s:operator_surround(wise) abort
+    let l:head = getpos("'[")
+    normal! `]a)
+    call setpos('.', l:head)
+    normal! i(
+  endfunction
+  function! s:operator_surround_keymap() abort
+    set operatorfunc=funcref('s:operator_surround')
+    return 'g@'
+  endfunction
+  nnoremap <expr> <Plug>(multitarget-gn-operator-surround) <SID>operator_surround_keymap()
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(1, 1)
+  execute "normal 3\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.foo
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #1')
+  call s:assert.equals(getpos('.'), [0, 3, 9, 0], 'failed at #1')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(1, 1)
+  execute "normal 4\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #2')
+  call s:assert.equals(getpos('.'), [0, 4, 13, 0], 'failed at #2')
+endfunction "}}}
+
 function! s:suite.gn_o_failure() abort "{{{
   call s:put_test_string()
   let @/ = ''
@@ -1173,6 +1218,51 @@ endfunction "}}}
 "   call s:assert.equals(getline(1, 4), l:expect, 'failed at #2')
 "   call s:assert.equals(getpos('.'), [0, 1, 3, 0], 'failed at #2')
 " endfunction "}}}
+
+function! s:suite.gN_o_surround_operator() abort "{{{
+  " An operator surround the specified region by parentheses
+  function! s:operator_surround(wise) abort
+    let l:head = getpos("'[")
+    normal! `]a)
+    call setpos('.', l:head)
+    normal! i(
+  endfunction
+  function! s:operator_surround_keymap() abort
+    set operatorfunc=funcref('s:operator_surround')
+    return 'g@'
+  endfunction
+  nnoremap <expr> <Plug>(multitarget-gn-operator-surround) <SID>operator_surround_keymap()
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(4, v:maxcol)
+  execute "normal 3\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    foo.bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #1')
+  call s:assert.equals(getpos('.'), [0, 2, 5, 0], 'failed at #1')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(4, v:maxcol)
+  execute "normal 4\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #2')
+  call s:assert.equals(getpos('.'), [0, 1, 1, 0], 'failed at #2')
+endfunction "}}}
 
 function! s:suite.gN_o_failure() abort "{{{
   call s:put_test_string()
