@@ -13,48 +13,50 @@ let s:NULLPOS = [0, 0]
 
 let s:in_operate_loop = s:FALSE
 function! multitarget_gn#gn(mode) abort
-  if @/ is# ''
-    return
-  endif
-  if a:mode is# 'n'
-    execute printf('normal! %dgn', v:count1)
-  elseif a:mode is# 'x'
-    if s:a_target_was_selected()
-      normal! n
-    endif
-    execute printf('normal! %dgn', v:count1)
-  elseif a:mode is# 'o'
-    if s:in_operate_loop
-      normal! gn
-      return
-    endif
-    let l:count = v:count1
-    normal! gn
-    call s:reserve(a:mode, 'n', l:count)
-  endif
+  call s:main(a:mode, 'n')
 endfunction
 
 
 function! multitarget_gn#gN(mode) abort
+  call s:main(a:mode, 'N')
+endfunction
+
+
+function! s:main(mode, n) abort
   if @/ is# ''
     return
   endif
+  let l:count = v:count1
   if a:mode is# 'n'
-    execute printf('normal! %dgN', v:count1)
+    call s:normal_mode(a:n, l:count)
   elseif a:mode is# 'x'
-    if s:a_target_was_selected()
-      normal! N
-    endif
-    execute printf('normal! %dgN', v:count1)
+    call s:visual_mode(a:n, l:count)
   elseif a:mode is# 'o'
-    if s:in_operate_loop
-      normal! gN
-      return
-    endif
-    let l:count = v:count1
-    normal! gN
-    call s:reserve(a:mode, 'N', l:count)
+    call s:operator_pending_mode(a:n, l:count)
   endif
+endfunction
+
+
+function! s:normal_mode(n, count) abort
+  execute printf('normal! %dg%s', a:count, a:n)
+endfunction
+
+
+function! s:visual_mode(n, count) abort
+  if s:a_target_was_selected()
+    execute 'normal! ' .. a:n
+  endif
+  execute printf('normal! %dg%s', a:count, a:n)
+endfunction
+
+
+function! s:operator_pending_mode(n, count) abort
+  if s:in_operate_loop
+    execute 'normal! g' .. a:n
+    return
+  endif
+  execute 'normal! g' .. a:n
+  call s:reserve(a:n, a:count)
 endfunction
 
 
@@ -65,7 +67,7 @@ endfunction
 
 
 " Set a hook to call s:operate() if the given count is larger than 1
-function! s:reserve(mode, n, count) abort
+function! s:reserve(n, count) abort
   if a:count <= 1
     return
   endif
