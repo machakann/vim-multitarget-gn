@@ -533,6 +533,133 @@ function! s:suite.gn_o_surround_operator() abort "{{{
   END
   call s:assert.equals(getline(1, 4), l:expect, 'failed at #2')
   call s:assert.equals(getpos('.'), [0, 4, 13, 0], 'failed at #2')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(1, 1)
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #3')
+  call s:assert.equals(getpos('.'), [0, 4, 13, 0], 'failed at #3')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(1, 1)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #4')
+  call s:assert.equals(getpos('.'), [0, 4, 13, 0], 'failed at #4')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(1, 3)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #5')
+  call s:assert.equals(getpos('.'), [0, 4, 13, 0], 'failed at #5')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(1, 4)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    foo.bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #6')
+  call s:assert.equals(getpos('.'), [0, 4, 13, 0], 'failed at #6')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(2, 1)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    foo.bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #7')
+  call s:assert.equals(getpos('.'), [0, 4, 13, 0], 'failed at #7')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(2, 5)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    foo.bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #8')
+  call s:assert.equals(getpos('.'), [0, 4, 13, 0], 'failed at #8')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(2, 7)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    foo.bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #9')
+  call s:assert.equals(getpos('.'), [0, 4, 13, 0], 'failed at #9')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(2, 8)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    foo.bar.baz.qux
+    qux.foo.bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #10')
+  call s:assert.equals(getpos('.'), [0, 4, 13, 0], 'failed at #10')
 endfunction "}}}
 
 function! s:suite.gn_o_failure() abort "{{{
@@ -1275,6 +1402,133 @@ function! s:suite.gN_o_surround_operator() abort "{{{
   END
   call s:assert.equals(getline(1, 4), l:expect, 'failed at #2')
   call s:assert.equals(getpos('.'), [0, 1, 1, 0], 'failed at #2')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(4, v:maxcol)
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #3')
+  call s:assert.equals(getpos('.'), [0, 1, 1, 0], 'failed at #3')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(4, 15)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #4')
+  call s:assert.equals(getpos('.'), [0, 1, 1, 0], 'failed at #4')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(4, 13)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.(foo)
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #5')
+  call s:assert.equals(getpos('.'), [0, 1, 1, 0], 'failed at #5')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(4, 12)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.foo
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #6')
+  call s:assert.equals(getpos('.'), [0, 1, 1, 0], 'failed at #6')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(3, 15)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.foo
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #7')
+  call s:assert.equals(getpos('.'), [0, 1, 1, 0], 'failed at #7')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(3, 11)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.foo
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #8')
+  call s:assert.equals(getpos('.'), [0, 1, 1, 0], 'failed at #8')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(3, 9)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.(foo).bar
+    bar.baz.qux.foo
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #9')
+  call s:assert.equals(getpos('.'), [0, 1, 1, 0], 'failed at #9')
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(3, 8)
+  set nowrapscan
+  execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    (foo).bar.baz.qux
+    qux.(foo).bar.baz
+    baz.qux.foo.bar
+    bar.baz.qux.foo
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #10')
+  call s:assert.equals(getpos('.'), [0, 1, 1, 0], 'failed at #10')
 endfunction "}}}
 
 function! s:suite.gN_o_failure() abort "{{{

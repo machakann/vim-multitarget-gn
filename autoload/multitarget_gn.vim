@@ -11,7 +11,6 @@ let s:TRUE = 1
 let s:NULLPOS = [0, 0]
 
 
-let s:in_operate_loop = s:FALSE
 function! multitarget_gn#gn(mode) abort
   call s:main(a:mode, 'n')
 endfunction
@@ -50,6 +49,7 @@ function! s:visual_mode(n, count) abort
 endfunction
 
 
+let s:in_operate_loop = s:FALSE
 function! s:operator_pending_mode(n, count) abort
   if s:in_operate_loop
     execute 'normal! g' .. a:n
@@ -71,9 +71,9 @@ function! s:reserve(n, count) abort
   if a:count <= 1
     return
   endif
-  let s:n = a:n
-  let s:count = a:count
   let s:mark = s:set_mark()
+  let s:count = s:trim_count(a:count, a:n)
+  let s:n = a:n
   augroup multitarget-gn
     autocmd!
     if v:operator is# 'c'
@@ -85,9 +85,9 @@ function! s:reserve(n, count) abort
 endfunction
 
 
+let s:mark = {}
 let s:count = 1
 let s:n = ''
-let s:mark = {}
 " Repeat the operation for the rest of targets
 function! s:operate() abort
   let l:mark = s:mark
@@ -106,6 +106,30 @@ function! s:operate() abort
   finally
     let s:in_operate_loop = s:FALSE
   endtry
+endfunction
+
+
+" Reduce count if it is larger than the matched
+function! s:trim_count(count, n) abort
+  let l:options = {
+  \   'recompute': s:TRUE,
+  \   'maxcount': a:count,
+  \ }
+  let l:d = searchcount(l:options)
+  if l:d == {}
+    return a:count
+  endif
+  let l:total = l:d.total > a:count ? a:count : l:d.total
+  if &wrapscan
+    let l:count = l:total
+  else
+    if a:n is# 'n'
+      let l:count = l:total - l:d.current + l:d.exact_match
+    else
+      let l:count = l:d.current
+    endif
+  endif
+  return l:count
 endfunction
 
 
