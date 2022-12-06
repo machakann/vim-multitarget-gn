@@ -708,6 +708,19 @@ function! s:suite.gn_x_select() abort "{{{
   call s:assert.equals(getpos('.'), [0, 4, 15, 0], 'failed at #4')
   call s:assert.equals(getpos("'<"), [0, 4, 13, 0], 'failed at #4')
   call s:assert.equals(getpos("'>"), [0, 4, 15, 0], 'failed at #4')
+
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(1, 1)
+  execute "normal v\<Plug>(multitarget-gn-gn)\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  call s:assert.equals(mode(), 'v', 'failed at #5')
+  execute "normal! \<Esc>"
+  call s:assert.equals(getpos('.'), [0, 2, 7, 0], 'failed at #5')
+  call s:assert.equals(getpos("'<"), [0, 2, 5, 0], 'failed at #5')
+  call s:assert.equals(getpos("'>"), [0, 2, 7, 0], 'failed at #5')
 endfunction "}}}
 
 function! s:suite.gn_x_select_with_count() abort "{{{
@@ -1437,6 +1450,19 @@ function! s:suite.gN_x_select() abort "{{{
   call s:assert.equals(getpos('.'), [0, 4, 13, 0], 'failed at #4')
   call s:assert.equals(getpos("'<"), [0, 4, 13, 0], 'failed at #4')
   call s:assert.equals(getpos("'>"), [0, 4, 15, 0], 'failed at #4')
+
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(4, v:maxcol)
+  execute "normal v\<Plug>(multitarget-gn-gN)\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  call s:assert.equals(mode(), 'v', 'failed at #5')
+  execute "normal! \<Esc>"
+  call s:assert.equals(getpos('.'), [0, 3, 9, 0], 'failed at #5')
+  call s:assert.equals(getpos("'<"), [0, 3, 9, 0], 'failed at #5')
+  call s:assert.equals(getpos("'>"), [0, 3, 11, 0], 'failed at #5')
 endfunction "}}}
 
 function! s:suite.gN_x_select_with_count() abort "{{{

@@ -16,17 +16,22 @@ function! multitarget_gn#gn(mode) abort
   if @/ is# ''
     return
   endif
-  if a:mode is# 'n' || a:mode is# 'x'
+  if a:mode is# 'n'
     execute printf('normal! %dgn', v:count1)
-    return
-  endif
-  if s:in_operate_loop
+  elseif a:mode is# 'x'
+    if s:a_target_was_selected()
+      normal! n
+    endif
+    execute printf('normal! %dgn', v:count1)
+  elseif a:mode is# 'o'
+    if s:in_operate_loop
+      normal! gn
+      return
+    endif
+    let l:count = v:count1
     normal! gn
-    return
+    call s:reserve(a:mode, 'n', l:count)
   endif
-  let l:count = v:count1
-  normal! gn
-  call s:reserve(a:mode, 'n', l:count)
 endfunction
 
 
@@ -34,17 +39,28 @@ function! multitarget_gn#gN(mode) abort
   if @/ is# ''
     return
   endif
-  if a:mode is# 'n' || a:mode is# 'x'
+  if a:mode is# 'n'
     execute printf('normal! %dgN', v:count1)
-    return
-  endif
-  if s:in_operate_loop
+  elseif a:mode is# 'x'
+    if s:a_target_was_selected()
+      normal! N
+    endif
+    execute printf('normal! %dgN', v:count1)
+  elseif a:mode is# 'o'
+    if s:in_operate_loop
+      normal! gN
+      return
+    endif
+    let l:count = v:count1
     normal! gN
-    return
+    call s:reserve(a:mode, 'N', l:count)
   endif
-  let l:count = v:count1
-  normal! gN
-  call s:reserve(a:mode, 'N', l:count)
+endfunction
+
+
+function! s:a_target_was_selected() abort
+  return getpos("'<")[1:2] == searchpos(@/, 'bcn') &&
+       \ getpos("'>")[1:2] == searchpos(@/, 'cen')
 endfunction
 
 
