@@ -139,7 +139,7 @@ endfunction
 let s:TEXTPROP_NAME = 'multitarget-gn'
 let s:textprop_id = 0
 let s:textprop_count = 0
-call prop_type_add(s:TEXTPROP_NAME, {})
+silent! call prop_type_add(s:TEXTPROP_NAME, {})
 " Mark the current cursor position
 function! s:set_mark() abort
   let l:lnum = line('.')
