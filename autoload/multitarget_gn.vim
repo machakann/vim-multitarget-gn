@@ -8,7 +8,6 @@
 
 let s:FALSE = 0
 let s:TRUE = 1
-let s:NULLPOS = [0, 0]
 
 
 function! multitarget_gn#gn(mode) abort
