@@ -3,7 +3,10 @@
 Author  : machakann <mckn{at}outlook.jp>
 License : MIT license
 
-Requirement:	Vim with |SafeState| autocmd
+Requirement:
+	Vim v8.2.0877 or newer
+	|SafeState| autocmd
+	|+textprop| feature
 ==============================================================================
 INDEX					*multitarget-gn-index*
 

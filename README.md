@@ -46,7 +46,9 @@ omap gn <Plug>(multitarget-gn-gn)
 
 
 ## Requirements
-- Vim with `SafeState` autocmd
+- Vim v8.2.0877 or newer
+- `SafeState` autocmd
+- `+textprop` feature
 
 
 ## Difference from the original command
