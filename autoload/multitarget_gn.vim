@@ -54,8 +54,12 @@ function! s:operator_pending_mode(n, count) abort
     execute 'normal! g' .. a:n
     return
   endif
+  let l:count = s:trim_count(a:count, a:n)
+  if l:count == 0
+    return
+  endif
   execute 'normal! g' .. a:n
-  call s:reserve(a:n, a:count)
+  call s:reserve(a:n, l:count)
 endfunction
 
 
@@ -75,7 +79,7 @@ function! s:reserve(n, count) abort
     call prop_remove({'type': s:TEXTPROP_NAME})
   endif
   let s:mark = s:set_mark()
-  let s:count = s:trim_count(a:count, a:n)
+  let s:count = a:count
   let s:n = a:n
   augroup multitarget-gn
     autocmd!
