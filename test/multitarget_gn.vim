@@ -514,11 +514,11 @@ endfunction "}}}
 
 " function! s:suite.gn_o_insert_operator() abort "{{{
 "   " An operator inserting 'foo' before the specified region
-"   function! s:operator_insert_foo(wise) abort
+"   function! Operator_insert_foo(wise) abort
 "     normal! `[ifoo
 "   endfunction
 "   function! s:operator_insert_foo_keymap() abort
-"     set operatorfunc=funcref('s:operator_insert_foo')
+"     set operatorfunc=Operator_insert_foo
 "     return 'g@'
 "   endfunction
 "   nnoremap <expr> <Plug>(multitarget-gn-operator-insert-foo) <SID>operator_insert_foo_keymap()
@@ -556,14 +556,14 @@ endfunction "}}}
 
 function! s:suite.gn_o_surround_operator() abort "{{{
   " An operator surround the specified region by parentheses
-  function! s:operator_surround(wise) abort
+  function! Operator_surround(wise) abort
     let l:head = getpos("'[")
     normal! `]a)
     call setpos('.', l:head)
     normal! i(
   endfunction
   function! s:operator_surround_keymap() abort
-    set operatorfunc=funcref('s:operator_surround')
+    set operatorfunc=Operator_surround
     return 'g@'
   endfunction
   nnoremap <expr> <Plug>(multitarget-gn-operator-surround) <SID>operator_surround_keymap()
@@ -957,7 +957,7 @@ endfunction "}}}
 function! s:suite.gN_o_first_call() abort "{{{
   call s:put_test_string()
   /foo
-  call cursor(1, v:maxcol)
+  call cursor(1, 15)
   execute "normal d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -973,7 +973,7 @@ function! s:suite.gN_o_first_call() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(2, v:maxcol)
+  call cursor(2, 15)
   execute "normal d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -989,7 +989,7 @@ function! s:suite.gN_o_first_call() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(3, v:maxcol)
+  call cursor(3, 15)
   execute "normal d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1005,7 +1005,7 @@ function! s:suite.gN_o_first_call() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1021,7 +1021,7 @@ endfunction "}}}
 function! s:suite.gN_o_first_call_with_count() abort "{{{
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 1d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1037,7 +1037,7 @@ function! s:suite.gN_o_first_call_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d1\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1053,7 +1053,7 @@ function! s:suite.gN_o_first_call_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 2d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1069,7 +1069,7 @@ function! s:suite.gN_o_first_call_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d2\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1085,7 +1085,7 @@ function! s:suite.gN_o_first_call_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 3d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1101,7 +1101,7 @@ function! s:suite.gN_o_first_call_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d3\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1117,7 +1117,7 @@ function! s:suite.gN_o_first_call_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 4d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1133,7 +1133,7 @@ function! s:suite.gN_o_first_call_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d4\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1149,7 +1149,7 @@ function! s:suite.gN_o_first_call_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 5d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1165,7 +1165,7 @@ function! s:suite.gN_o_first_call_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d5\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1181,7 +1181,7 @@ function! s:suite.gN_o_first_call_with_count() abort "{{{
 
   call s:put_test_string()
   /foo\|bar
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d2\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1197,7 +1197,7 @@ function! s:suite.gN_o_first_call_with_count() abort "{{{
 
   call s:put_test_string()
   /foo\|bar
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d3\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1213,7 +1213,7 @@ function! s:suite.gN_o_first_call_with_count() abort "{{{
 
   call s:put_test_string()
   /qux\nqux\|baz\nbaz\|bar\nbar
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d3\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1226,7 +1226,7 @@ endfunction "}}}
 function! s:suite.gN_o_dot_call() abort "{{{
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   normal! .
@@ -1244,7 +1244,7 @@ function! s:suite.gN_o_dot_call() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 2d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   normal! .
@@ -1262,7 +1262,7 @@ function! s:suite.gN_o_dot_call() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   normal! 2.
@@ -1333,7 +1333,7 @@ endfunction "}}}
 function! s:suite.gN_o_c_operator() abort "{{{
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal c\<Plug>(multitarget-gn-gN)quux"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1349,7 +1349,7 @@ function! s:suite.gN_o_c_operator() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 2c\<Plug>(multitarget-gn-gN)quux"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1365,7 +1365,7 @@ function! s:suite.gN_o_c_operator() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 3c\<Plug>(multitarget-gn-gN)quux"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1381,7 +1381,7 @@ function! s:suite.gN_o_c_operator() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 4c\<Plug>(multitarget-gn-gN)quux"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1398,7 +1398,7 @@ function! s:suite.gN_o_gU_with_smartcase() abort "{{{
   call s:put_test_string()
   /foo
   set smartcase
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 2gU\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1415,7 +1415,7 @@ function! s:suite.gN_o_gU_with_smartcase() abort "{{{
   call s:put_test_string()
   /foo
   set smartcase
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 3gU\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1432,7 +1432,7 @@ function! s:suite.gN_o_gU_with_smartcase() abort "{{{
   call s:put_test_string()
   /foo
   set smartcase
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 4gU\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1447,11 +1447,11 @@ endfunction "}}}
 
 " function! s:suite.gN_o_insert_operator() abort "{{{
 "   " An operator inserting 'foo' before the specified region
-"   function! s:operator_insert_foo(wise) abort
+"   function! Operator_insert_foo(wise) abort
 "     normal! `[ifoo
 "   endfunction
 "   function! s:operator_insert_foo_keymap() abort
-"     set operatorfunc=funcref('s:operator_insert_foo')
+"     set operatorfunc=Operator_insert_foo
 "     return 'g@'
 "   endfunction
 "   nnoremap <expr> <Plug>(multitarget-gn-operator-insert-foo) <SID>operator_insert_foo_keymap()
@@ -1459,7 +1459,7 @@ endfunction "}}}
 
 "   call s:put_test_string()
 "   /foo
-"   call cursor(4, v:maxcol)
+"   call cursor(4, 15)
 "   execute "normal 3\<Plug>(multitarget-gn-operator-insert-foo)\<Plug>(multitarget-gn-gN)"
 "   silent! doautocmd multitarget-gn SafeState
 "   let l:expect =<< trim END
@@ -1474,7 +1474,7 @@ endfunction "}}}
 
 "   call s:put_test_string()
 "   /foo
-"   call cursor(4, v:maxcol)
+"   call cursor(4, 15)
 "   execute "normal 4\<Plug>(multitarget-gn-operator-insert-foo)\<Plug>(multitarget-gn-gN)"
 "   silent! doautocmd multitarget-gn SafeState
 "   let l:expect =<< trim END
@@ -1489,14 +1489,14 @@ endfunction "}}}
 
 function! s:suite.gN_o_surround_operator() abort "{{{
   " An operator surround the specified region by parentheses
-  function! s:operator_surround(wise) abort
+  function! Operator_surround(wise) abort
     let l:head = getpos("'[")
     normal! `]a)
     call setpos('.', l:head)
     normal! i(
   endfunction
   function! s:operator_surround_keymap() abort
-    set operatorfunc=funcref('s:operator_surround')
+    set operatorfunc=Operator_surround
     return 'g@'
   endfunction
   nnoremap <expr> <Plug>(multitarget-gn-operator-surround) <SID>operator_surround_keymap()
@@ -1504,7 +1504,7 @@ function! s:suite.gN_o_surround_operator() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 3\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1519,7 +1519,7 @@ function! s:suite.gN_o_surround_operator() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 4\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1534,7 +1534,7 @@ function! s:suite.gN_o_surround_operator() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 5\<Plug>(multitarget-gn-operator-surround)\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1662,7 +1662,7 @@ endfunction "}}}
 function! s:suite.gN_o_failure() abort "{{{
   call s:put_test_string()
   let @/ = ''
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1678,7 +1678,7 @@ function! s:suite.gN_o_failure() abort "{{{
 
   call s:put_test_string()
   let @/ = 'quux'
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal d\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   let l:expect =<< trim END
@@ -1694,7 +1694,7 @@ endfunction "}}}
 function! s:suite.gN_n_select() abort "{{{
   call s:put_test_string()
   /foo
-  call cursor(1, v:maxcol)
+  call cursor(1, 15)
   execute "normal \<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #1')
@@ -1707,7 +1707,7 @@ function! s:suite.gN_n_select() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(2, v:maxcol)
+  call cursor(2, 15)
   execute "normal \<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #2')
@@ -1720,7 +1720,7 @@ function! s:suite.gN_n_select() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(3, v:maxcol)
+  call cursor(3, 15)
   execute "normal \<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #3')
@@ -1733,7 +1733,7 @@ function! s:suite.gN_n_select() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal \<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #4')
@@ -1746,7 +1746,7 @@ endfunction "}}}
 function! s:suite.gN_n_select_with_count() abort "{{{
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 2\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #1')
@@ -1759,7 +1759,7 @@ function! s:suite.gN_n_select_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 3\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #2')
@@ -1772,7 +1772,7 @@ function! s:suite.gN_n_select_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal 4\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #3')
@@ -1785,7 +1785,7 @@ endfunction "}}}
 function! s:suite.gN_x_select() abort "{{{
   call s:put_test_string()
   /foo
-  call cursor(1, v:maxcol)
+  call cursor(1, 15)
   execute "normal v\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #1')
@@ -1798,7 +1798,7 @@ function! s:suite.gN_x_select() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(2, v:maxcol)
+  call cursor(2, 15)
   execute "normal v\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #2')
@@ -1811,7 +1811,7 @@ function! s:suite.gN_x_select() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(3, v:maxcol)
+  call cursor(3, 15)
   execute "normal v\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #3')
@@ -1824,7 +1824,7 @@ function! s:suite.gN_x_select() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal v\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #4')
@@ -1837,7 +1837,7 @@ function! s:suite.gN_x_select() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal v\<Plug>(multitarget-gn-gN)\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #5')
@@ -1850,7 +1850,7 @@ endfunction "}}}
 function! s:suite.gN_x_select_with_count() abort "{{{
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal v2\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #1')
@@ -1863,7 +1863,7 @@ function! s:suite.gN_x_select_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal v3\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #2')
@@ -1876,7 +1876,7 @@ function! s:suite.gN_x_select_with_count() abort "{{{
 
   call s:put_test_string()
   /foo
-  call cursor(4, v:maxcol)
+  call cursor(4, 15)
   execute "normal v4\<Plug>(multitarget-gn-gN)"
   silent! doautocmd multitarget-gn SafeState
   call s:assert.equals(mode(), 'v', 'failed at #3')
