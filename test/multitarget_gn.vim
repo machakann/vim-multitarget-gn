@@ -342,6 +342,52 @@ function! s:suite.gn_o_dot_call() abort "{{{
   END
   call s:assert.equals(getline(1, 4), l:expect, 'failed at #3')
   call s:assert.equals(getpos('.'), [0, 3, 9, 0], 'failed at #3')
+
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(1, 1)
+  execute "normal d\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    .bar.baz.qux
+    qux..bar.baz
+    baz.qux..bar
+    bar.baz.qux.
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #4')
+  call s:assert.equals(getpos('.'), [0, 4, 12, 0], 'failed at #4')
+
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(1, 1)
+  execute "normal d\<Plug>(multitarget-gn-gn)"
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    .bar.baz.qux
+    qux..bar.baz
+    baz.qux..bar
+    bar.baz.qux.
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #5')
+  call s:assert.equals(getpos('.'), [0, 4, 12, 0], 'failed at #5')
 endfunction "}}}
 
 function! s:suite.gn_o_wrapscan() abort "{{{
@@ -1275,6 +1321,52 @@ function! s:suite.gN_o_dot_call() abort "{{{
   END
   call s:assert.equals(getline(1, 4), l:expect, 'failed at #3')
   call s:assert.equals(getpos('.'), [0, 2, 5, 0], 'failed at #3')
+
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(4, 15)
+  execute "normal d\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    .bar.baz.qux
+    qux..bar.baz
+    baz.qux..bar
+    bar.baz.qux.
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #4')
+  call s:assert.equals(getpos('.'), [0, 1, 1, 0], 'failed at #4')
+
+
+
+  call s:put_test_string()
+  /foo
+  call cursor(4, 15)
+  execute "normal d\<Plug>(multitarget-gn-gN)"
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  normal! .
+  silent! doautocmd multitarget-gn SafeState
+  let l:expect =<< trim END
+    .bar.baz.qux
+    qux..bar.baz
+    baz.qux..bar
+    bar.baz.qux.
+  END
+  call s:assert.equals(getline(1, 4), l:expect, 'failed at #5')
+  call s:assert.equals(getpos('.'), [0, 1, 1, 0], 'failed at #5')
 endfunction "}}}
 
 function! s:suite.gN_o_wrapscan() abort "{{{
