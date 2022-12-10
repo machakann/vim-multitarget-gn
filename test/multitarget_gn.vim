@@ -514,11 +514,11 @@ endfunction "}}}
 
 " function! s:suite.gn_o_insert_operator() abort "{{{
 "   " An operator inserting 'foo' before the specified region
-"   function! s:operator_insert_foo(wise) abort
+"   function! Operator_insert_foo(wise) abort
 "     normal! `[ifoo
 "   endfunction
 "   function! s:operator_insert_foo_keymap() abort
-"     set operatorfunc=funcref('s:operator_insert_foo')
+"     set operatorfunc=Operator_insert_foo
 "     return 'g@'
 "   endfunction
 "   nnoremap <expr> <Plug>(multitarget-gn-operator-insert-foo) <SID>operator_insert_foo_keymap()
@@ -556,14 +556,14 @@ endfunction "}}}
 
 function! s:suite.gn_o_surround_operator() abort "{{{
   " An operator surround the specified region by parentheses
-  function! s:operator_surround(wise) abort
+  function! Operator_surround(wise) abort
     let l:head = getpos("'[")
     normal! `]a)
     call setpos('.', l:head)
     normal! i(
   endfunction
   function! s:operator_surround_keymap() abort
-    set operatorfunc=funcref('s:operator_surround')
+    set operatorfunc=Operator_surround
     return 'g@'
   endfunction
   nnoremap <expr> <Plug>(multitarget-gn-operator-surround) <SID>operator_surround_keymap()
@@ -1447,11 +1447,11 @@ endfunction "}}}
 
 " function! s:suite.gN_o_insert_operator() abort "{{{
 "   " An operator inserting 'foo' before the specified region
-"   function! s:operator_insert_foo(wise) abort
+"   function! Operator_insert_foo(wise) abort
 "     normal! `[ifoo
 "   endfunction
 "   function! s:operator_insert_foo_keymap() abort
-"     set operatorfunc=funcref('s:operator_insert_foo')
+"     set operatorfunc=Operator_insert_foo
 "     return 'g@'
 "   endfunction
 "   nnoremap <expr> <Plug>(multitarget-gn-operator-insert-foo) <SID>operator_insert_foo_keymap()
@@ -1489,14 +1489,14 @@ endfunction "}}}
 
 function! s:suite.gN_o_surround_operator() abort "{{{
   " An operator surround the specified region by parentheses
-  function! s:operator_surround(wise) abort
+  function! Operator_surround(wise) abort
     let l:head = getpos("'[")
     normal! `]a)
     call setpos('.', l:head)
     normal! i(
   endfunction
   function! s:operator_surround_keymap() abort
-    set operatorfunc=funcref('s:operator_surround')
+    set operatorfunc=Operator_surround
     return 'g@'
   endfunction
   nnoremap <expr> <Plug>(multitarget-gn-operator-surround) <SID>operator_surround_keymap()
