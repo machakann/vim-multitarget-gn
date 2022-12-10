@@ -1,6 +1,8 @@
 vim-multitarget-gn
 =================
 
+[![Test](https://github.com/machakann/vim-multitarget-gn/actions/workflows/test.yml/badge.svg)](https://github.com/machakann/vim-multitarget-gn/actions/workflows/test.yml)
+
 Yet another `gn` command taking a count as a number of operation.
 
 ## What for?
