@@ -124,7 +124,7 @@ function! s:trim_count(count, n) abort
   \ }
   let l:d = searchcount(l:options)
   if l:d == {}
-    return a:count
+    return 0
   endif
   let l:total = l:d.total > a:count ? a:count : l:d.total
   if &wrapscan
